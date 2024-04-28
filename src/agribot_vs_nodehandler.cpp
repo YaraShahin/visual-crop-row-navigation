@@ -20,8 +20,8 @@ AgribotVSNodeHandler::AgribotVSNodeHandler(ros::NodeHandle& nodeHandle): nodeHan
   }
 
   // Subscribers
-  image_front_sub = nodeHandle_.subscribe("/front/rgb/image_raw", 2, &AgribotVSNodeHandler::imageFrontCalllBack,this);
-  image_back_sub = nodeHandle_.subscribe("/back/rgb/image_raw", 2, &AgribotVSNodeHandler::imageBackCalllBack,this);
+  image_front_sub = nodeHandle_.subscribe("/agribot/front_camera/image_raw", 2, &AgribotVSNodeHandler::imageFrontCalllBack,this);
+  image_back_sub = nodeHandle_.subscribe("/agribot/back_camera/image_raw", 2, &AgribotVSNodeHandler::imageBackCalllBack,this);
   Mocap_sub = nodeHandle_.subscribe("/amcl_pose", 1, &AgribotVSNodeHandler::amclPoseCallBack,this);
   Odom_sub = nodeHandle_.subscribe("/odometry/raw", 10, &AgribotVSNodeHandler::odomCallBack,this);
   IMU_sub = nodeHandle_.subscribe("/imu/data", 1000, &AgribotVSNodeHandler::imuCallBack,this);
@@ -150,6 +150,7 @@ void AgribotVSNodeHandler::publishVelocity(int _in) {
     VSVelocityPub.publish(agribotVS.VelocityMsg);
   }else{
     if(agribotVS.publish_cmd_vel){
+      cout<<"mot"<<agribotVS.VelocityMsg<<endl;
       VSVelocityPub.publish(agribotVS.VelocityMsg);
     }
   }

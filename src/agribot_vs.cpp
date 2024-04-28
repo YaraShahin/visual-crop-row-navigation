@@ -178,7 +178,7 @@ namespace agribot_vs{
     for (size_t i = 0; i < contours.size(); i++) {
       approxPolyDP(Mat(contours[i]), contours_poly[i], 2, true);
       minEnclosingCircle((Mat)contours_poly[i], center[i], radius[i]);
-      cv::circle(img, Point(center[i].x, center[i].y),3, Scalar(51, 204, 51),CV_FILLED, 8,0);
+      cv::circle(img, Point(center[i].x, center[i].y),3, Scalar(51, 204, 51),cv::FILLED, 8,0);
     }
     return center;
   }
@@ -250,7 +250,7 @@ namespace agribot_vs{
 
       MatrixXf R_out(2,2);
       R_out = is_in_image_point(R);
-      cv::line(img, Point(R_out(0,0), R_out(0,1)),Point(R_out(1,0), R_out(1,1)), Scalar(0, 0, 255), 1, CV_AA);
+      cv::line(img, Point(R_out(0,0), R_out(0,1)),Point(R_out(1,0), R_out(1,1)), Scalar(0, 0, 255), 1, LINE_AA);
       AvgLine[0][0] =R_out(0,0);
       AvgLine[0][1] =R_out(0,1);
       AvgLine[0][2] =R_out(1,0);
@@ -386,8 +386,8 @@ namespace agribot_vs{
     I.nh.Yc = (I.nh_ex[0].y + I.nh_ex[1].y)/2;
 
     // computes intersection side
-    cv::circle(I.image, Point(P.x, P.y),8, Scalar(0,0,255),CV_FILLED, 12,0);
-    cv::circle(I.image, Point(Q.x, Q.y),8, Scalar(0,255,255),CV_FILLED, 12,0);
+    cv::circle(I.image, Point(P.x, P.y),8, Scalar(0,0,255),cv::FILLED, 12,0);
+    cv::circle(I.image, Point(Q.x, Q.y),8, Scalar(0,255,255),cv::FILLED, 12,0);
 
     // compute Theta
     float Theta = compute_Theta(P,Q);
@@ -429,7 +429,7 @@ namespace agribot_vs{
       (avg_nh_points_y > (double)height-coef && avg_points_y > (double)height-coef*2)){
       minp_cnt=0;
       cout << "I_primary doesn't see anything !!!! ID: " << camera_ID << endl;
-      if(I_secondary.points.size() < min_points){
+      //if(I_secondary.points.size() < min_points){
         cout << "turning_mode: " << turning_mode << endl;
           // No points visible in both cameras
           if(turning_mode){
@@ -447,19 +447,6 @@ namespace agribot_vs{
             is_in_neigbourhood(I_primary);  
 
           }
-      }else{
-          mode++;
-          // 1->2 and 3->4
-          cout << "SWITCHING CAMERAS" << endl;
-          switch_cameras(camera_ID);
-          initialize_neigbourhood(I_secondary);
-          initialize_neigbourhood(I_primary);
-          is_in_neigbourhood(I_primary);   
-          turning_mode = true;
-          drive_forward = false;
-          steering_dir = -steering_dir;
-          cout << "turning mode ON" << endl;
-      }
     }else{
         cout  << 
         "mode: " << mode << 

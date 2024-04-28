@@ -36,15 +36,16 @@ int main(int argc, char** argv) {
   vs_NodeH.agribotVS.initialize_neigbourhood(*I_primary);
   vs_NodeH.agribotVS.initialize_neigbourhood(*I_secondary);
   int cnt =0;
-  
+  bool flag = false;
+
   while(ros::ok()){
 
-    if(cnt < vs_NodeH.agribotVS.max_row_num){
+    if(true){
 
       if(vs_NodeH.agribotVS.single_camera_mode){
         I_secondary = I_primary;
       }
-      if(!vs_NodeH.agribotVS.mask_tune){
+      if(flag){
         vs_NodeH.agribotVS.switching_controller(*I_primary, *I_secondary, vs_NodeH.agribotVS.min_points_switch);
 
         if(vs_NodeH.agribotVS.camera_ID == 1){
@@ -65,7 +66,7 @@ int main(int argc, char** argv) {
 
           // draw plant centers in image (in neighbourhood)
           for(size_t i = 0; i < I_primary->nh_points.size(); i++){
-            cv::circle(I_primary->image, Point(I_primary->nh_points[i].x,I_primary->nh_points[i].y),5, Scalar(0, 204, 255), CV_FILLED, 8,0);
+            cv::circle(I_primary->image, Point(I_primary->nh_points[i].x,I_primary->nh_points[i].y),5, Scalar(0, 204, 255), cv::FILLED, 8,0);
           }
 
           Mat des_comp;
@@ -88,8 +89,10 @@ int main(int argc, char** argv) {
       curr_time_msg.clock = curr_time;      
       vs_NodeH.Time_pub.publish(curr_time_msg);
     }
+
+    if (cnt>10)flag = true;
+    cnt++;
     
-    if(cnt < 1000)cnt++;
     ros::spinOnce();
     loop_rate.sleep();
   }

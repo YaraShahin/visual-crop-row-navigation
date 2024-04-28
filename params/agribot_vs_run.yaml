@@ -13,7 +13,7 @@ fps: 20
 #-------------------------------------------------------
 #-------------------Application modes-------------------
 # The mode which is used for tuning the mask (no velocity will be published)
-mask_tune: true
+mask_tune: false
 # In case of having only one camera set this param to true (the front camera will be used)
 single_camera_mode: true
 #-------------------------------------------------------
@@ -23,14 +23,14 @@ maskTuneCamera: 1
 # Scale of the image processed (it resizes the input images before process) between 0.0 ~ 1.0
 Scale: 0.7
 # Min and Max of Hue Channel
-max_Hue: 80
-min_Hue: 40
+max_Hue: 100  #80
+min_Hue: 40   #40
 # Min and Max of Saturation Channel
 max_Saturation: 255
 min_Saturation: 50
 # Min and Max of Value Channel
-max_Value: 150
-min_value: 100
+max_Value: 255
+min_value: 50
 #-------------------------------------------------------
 #------------------Feature space------------------------ 
 # min radius of contour which will be detected and contribute on detecting line 
