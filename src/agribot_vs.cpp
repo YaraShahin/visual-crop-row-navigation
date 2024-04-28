@@ -250,7 +250,7 @@ namespace agribot_vs{
 
       MatrixXf R_out(2,2);
       R_out = is_in_image_point(R);
-      cv::line(img, Point(R_out(0,0), R_out(0,1)),Point(R_out(1,0), R_out(1,1)), Scalar(0, 0, 255), 1, LINE_AA);
+      cv::line(img, Point(R_out(0,0), R_out(0,1)),Point(R_out(1,0), R_out(1,1)), Scalar(0, 0, 255), 2, LINE_AA);
       AvgLine[0][0] =R_out(0,0);
       AvgLine[0][1] =R_out(0,1);
       AvgLine[0][2] =R_out(1,0);
@@ -358,7 +358,7 @@ namespace agribot_vs{
       VelocityMsg.angular.z = 0;
     }else{
       if(w(0,0) > 0.3) w(0,0) = 0.3;
-      VelocityMsg.angular.z = steering_dir * w(0,0);
+      VelocityMsg.angular.z = 0;
     }
 
     if(abs(VelocityMsg.angular.z) < z_min || mode == 4 || mode==2)VelocityMsg.angular.z=0.0;
@@ -381,9 +381,9 @@ namespace agribot_vs{
       Q.y = I.lines[0][1];
     }
 
-    I.nh_ex = Compute_nh_ex(I);
-    I.nh.Xc = (I.nh_ex[0].x + I.nh_ex[1].x)/2;
-    I.nh.Yc = (I.nh_ex[0].y + I.nh_ex[1].y)/2;
+    //I.nh_ex = Compute_nh_ex(I);
+    //I.nh.Xc = (I.nh_ex[0].x + I.nh_ex[1].x)/2;
+    //I.nh.Yc = (I.nh_ex[0].y + I.nh_ex[1].y)/2;
 
     // computes intersection side
     cv::circle(I.image, Point(P.x, P.y),8, Scalar(0,0,255),cv::FILLED, 12,0);
@@ -623,7 +623,7 @@ namespace agribot_vs{
     cout << "###########shift_neighbourhood############" << endl;
     // new neighbourhood to select row
     cout << I.nh.Xc  << " " << I.nh.Xc + dX  << " " << I.nh.shift << "  " << shift_dir << endl;
-    I.nh.Xc = I.nh.Xc + dX;
+    //I.nh.Xc = I.nh.Xc + dX;
   }
   void AgribotVS::is_in_neigbourhood(camera& I){
     I.nh_points.clear();

@@ -42,7 +42,7 @@ AgribotVSNodeHandler::~AgribotVSNodeHandler() {
 void AgribotVSNodeHandler::CropRow_Tracking(camera& src){
     // finding contour from image baed on crops in rows
     src.contours = agribotVS.CropRowFeatures(src);
-    if(!agribotVS.mask_tune || src.contours.size() != 0){
+    if(src.contours.size() != 0){
 
       src.points = agribotVS.getContureCenters(src.image, src.contours);
       

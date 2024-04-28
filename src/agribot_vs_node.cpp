@@ -70,6 +70,7 @@ int main(int argc, char** argv) {
           }
 
           Mat des_comp;
+          cv::line(I_primary->image, Point(I_primary->lines[0][0], I_primary->lines[0][1]),Point(I_primary->lines[1][0],I_primary->lines[1][1]), Scalar(0, 0, 255), 2, LINE_AA);
           cv::resize(I_primary->image, des_comp, cv::Size(), vs_NodeH.agribotVS.Scale, vs_NodeH.agribotVS.Scale);
           imshow("Cameras", des_comp);
           waitKey(1);

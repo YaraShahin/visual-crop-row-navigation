@@ -40,14 +40,14 @@ LineFitting_method: 1
 # -------------------------------------------------------
 #---------------------- Neighbourhood---------------------
 # Size of input image should be set here 
-width: 640
-height: 480
+width: 1280
+height: 720
 # default position of tracking windows 
-ex_Xc: 320
-ex_Yc: 240
+ex_Xc: 650
+ex_Yc: 200
 # default size of tracking windows
-nh_L: 120
-nh_H: 250
+nh_L: 2000
+nh_H: 2000
 # ???
 nh_offset: 200
 # min point where sate controller will switch the mode inside the tracking windows
