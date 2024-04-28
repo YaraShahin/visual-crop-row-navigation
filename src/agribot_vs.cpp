@@ -429,7 +429,7 @@ namespace agribot_vs{
       (avg_nh_points_y > (double)height-coef && avg_points_y > (double)height-coef*2)){
       minp_cnt=0;
       cout << "I_primary doesn't see anything !!!! ID: " << camera_ID << endl;
-      //if(I_secondary.points.size() < min_points){
+      if(I_secondary.points.size() < min_points){
         cout << "turning_mode: " << turning_mode << endl;
           // No points visible in both cameras
           if(turning_mode){
@@ -447,6 +447,19 @@ namespace agribot_vs{
             is_in_neigbourhood(I_primary);  
 
           }
+      }else{
+          mode++;
+          // 1->2 and 3->4
+          //cout << "SWITCHING CAMERAS" << endl;
+          //switch_cameras(camera_ID);
+          //initialize_neigbourhood(I_secondary);
+          initialize_neigbourhood(I_primary);
+          is_in_neigbourhood(I_primary);   
+          turning_mode = true;
+          drive_forward = false;
+          steering_dir = -steering_dir;
+          cout << "turning mode ON" << endl;
+      }
     }else{
         cout  << 
         "mode: " << mode << 
