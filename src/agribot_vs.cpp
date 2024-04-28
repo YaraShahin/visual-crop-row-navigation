@@ -155,7 +155,7 @@ namespace agribot_vs{
       drawContours(img_contour, contours, i, color, 1, 8, hierarchy, 0, Point());
     }
 
-    if(mask_tune && maskTuneCamera == camera_ID){
+    if(true){
       Mat Comb_HSV;
       hconcat(hueMask,saturationMask,Comb_HSV);
       hconcat(Comb_HSV,valueMask ,Comb_HSV);
