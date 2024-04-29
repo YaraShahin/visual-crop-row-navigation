@@ -354,8 +354,10 @@ namespace agribot_vs{
 
     w(0,0) = copysign(min(abs(w(0,0)),(float)w_max), w(0,0));
 
-    if(abs(v) < 0.05 ||  (I_primary.nh_points.size() < 5  && I_secondary.nh_points.size() <5)){
+    if(abs(v) < 0.05 ||  (I_primary.nh_points.size() < 5)){
       VelocityMsg.angular.z = 0;
+      VelocityMsg.linear.x  = 0;
+      return;
     }else{
       if(w(0,0) > 0.3) w(0,0) = 0.3;
       VelocityMsg.angular.z = 0;
